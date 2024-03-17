@@ -13,7 +13,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar
-        barStyle='light-content'
+        barStyle='dark-content'
         translucent
       />
       { fontsLoaded ? <Routes/> : <Loading/> }
