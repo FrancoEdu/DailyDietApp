@@ -19,7 +19,7 @@ export const Container = styled(TouchableOpacity)<Props>`
   border-radius: 6px;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 5px;
   flex-direction: row;
   gap: 20px;
   border-color: ${({ theme, type }) => type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_600};
