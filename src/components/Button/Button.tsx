@@ -5,7 +5,7 @@ export function Button({title, type = 'PRIMARY', icon = 'add', ...rest}: ButtonP
   return(
     <Container type={type} {...rest}>
       <Icon name={icon} type={type}/>
-      <Title>{title}</Title>
+      <Title type={type}>{title}</Title>
     </Container>
   );
 }

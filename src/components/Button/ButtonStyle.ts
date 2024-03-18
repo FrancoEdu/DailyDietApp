@@ -10,6 +10,7 @@ type Props = {
   type: ButtonTypeStyleProps;
 };
 
+
 export const Container = styled(TouchableOpacity)<Props>`
   flex: 1;
   min-height: 56;
@@ -21,16 +22,19 @@ export const Container = styled(TouchableOpacity)<Props>`
   margin-top: 20px;
   flex-direction: row;
   gap: 20px;
+  border-color: ${({ theme, type }) => type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_600};
+  border-width: 2px;
+  border-style: solid;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<Props>`
   text-align: center;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
-  color: ${({ theme }) => theme.COLORS.WHITE};
+  color: ${({ theme, type }) => type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_600};
 `
 
 export const Icon = styled(MaterialIcons).attrs<Props>(({ theme, type }) => ({
   size: 24,
-  color: type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_700
+  color: type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_600
 }))``;
