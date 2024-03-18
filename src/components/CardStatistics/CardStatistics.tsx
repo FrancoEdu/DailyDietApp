@@ -1,6 +1,6 @@
 import { Container, HeaderCardStatistics, IconCardStatistics, PorcentageText } from "./StyleCardStatistics";
 import { CardStatisticsProp } from "./shared/CardStatisticsProps";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 
 export function CardStatistics({type = 'PRIMARY'} : CardStatisticsProp){
   return(
