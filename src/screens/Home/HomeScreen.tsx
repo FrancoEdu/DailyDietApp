@@ -1,12 +1,12 @@
 import { Button } from "@components/Button/Button";
 import { Container } from "./StyleScreen";
+import { CardStatistics } from "@components/CardStatistics/CardStatistics";
 
 export function HomeScreen(){
   return(
     <Container>
-      <Button
-        title="Nova refeição"
-      ></Button>
+      <CardStatistics/>
+      <Button title="Nova refeição" />
     </Container>
   );
 }
