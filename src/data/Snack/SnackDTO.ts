@@ -4,5 +4,5 @@ export interface SnackDTO{
   description: string;
   date: string;
   hour: string;
-  onDiet: string;
+  onDiet: boolean;
 }
