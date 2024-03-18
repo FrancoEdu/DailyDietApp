@@ -13,6 +13,7 @@ export function HomeScreen(){
   // <SnackCard name="X-TUDO" onDiet={false} hour="20:00"/>
   // <SnackCard name="X-TUDO" onDiet={true} hour="20:00"/>
   // <SnackCard name="X-TUDO" onDiet={false} hour="20:00"/>
+  // <EmptyList message="Nenhuma refeição registrada, que tal adicionar..."/>
 
   return(
     <Container>
@@ -20,7 +21,6 @@ export function HomeScreen(){
       <CardStatistics/>
       <FoodText>Refeições</FoodText>
       <Button title="Nova refeição" />
-      <EmptyList message="Nenhuma refeição registrada, que tal adicionar..."/>
     </Container>
   );
 }

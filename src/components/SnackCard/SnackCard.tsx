@@ -1,9 +1,9 @@
 import { Container, Hour, HourView, Icon, SnackHourView, SnackName } from "./StyleSnackCard";
 import { SnackCardProps } from "./shared/SnackCardProps";
 
-export function SnackCard({name, onDiet, hour}: SnackCardProps){
+export function SnackCard({name, onDiet, hour, ...rest}: SnackCardProps){
   return(
-    <Container>
+    <Container {...rest}>
       <SnackHourView>
         <HourView><Hour>{hour}</Hour></HourView>
         <SnackName>{name}</SnackName>

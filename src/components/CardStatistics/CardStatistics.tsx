@@ -2,10 +2,10 @@ import { Container, HeaderCardStatistics, IconCardStatistics, PorcentageText } f
 import { CardStatisticsProp } from "./shared/CardStatisticsProps";
 import { Text } from "react-native";
 
-export function CardStatistics({type = 'PRIMARY'} : CardStatisticsProp){
+export function CardStatistics({type = 'PRIMARY', ...rest} : CardStatisticsProp){
   return(
     <Container type={type}>
-      <HeaderCardStatistics>
+      <HeaderCardStatistics {...rest}>
           <IconCardStatistics name="arrow-outward" type={type}/>
       </HeaderCardStatistics>
       <PorcentageText>90,86%</PorcentageText>
