@@ -1,3 +1,4 @@
+import { Title } from './../Button/ButtonStyle';
 import { MaterialIcons } from '@expo/vector-icons';
 import { View } from "react-native";
 import styled from "styled-components/native";
@@ -14,6 +15,8 @@ export const ContainerHeader = styled(View)<Props>`
   gap: 5px;
   height: 210px;
   padding: 24px;
+  position: relative;
+  z-index: 1;
 `
 
 export const IconView = styled.TouchableOpacity`
