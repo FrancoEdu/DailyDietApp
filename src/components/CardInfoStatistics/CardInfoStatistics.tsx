@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import { Container, NumberInfo, ViewTypeStyleProps } from "./StyleCardInfoStatistics";
+import { Container, NumberInfo, TextInfo, ViewTypeStyleProps } from "./StyleCardInfoStatistics";
 
 type Props = {
   type: ViewTypeStyleProps;
@@ -12,7 +12,7 @@ export function CardIfoStatistics({ type = 'TERTIARY', number, text, width }: Pr
   return(
     <Container width={width} type={type}>
       <NumberInfo>{number}</NumberInfo>
-      <Text>{text}</Text>
+      <TextInfo>{text}</TextInfo>
     </Container>
   )
 }
