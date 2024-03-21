@@ -28,7 +28,7 @@ export function CreationScreen(){
 
   return(
     <Container>
-      <BackButton/>
+      <BackButton textTitle="Nova refeição"/>
       <TextInput>Nome</TextInput>
       <DataInput/>
       <TextInput>Descrição</TextInput>

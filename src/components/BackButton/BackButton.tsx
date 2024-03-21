@@ -2,11 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { ButtonTypeIconProps, ButtonTypeStyleProps, Container, IconBackButton, TitleStatistics } from "./StyleBackButton";
 
 type Props = {
+  backgroundType?: ButtonTypeStyleProps;
   type?: ButtonTypeStyleProps;
   icon?: ButtonTypeIconProps;
+  textTitle: string;
 }
 
-export function BackButton({type = 'SECUNDARY', icon = 'arrow-back'}: Props){
+export function BackButton({type = 'SECUNDARY', icon = 'arrow-back', backgroundType = 'PRIMARY', textTitle}: Props){
   
   const navigation = useNavigation();
 
@@ -16,9 +18,9 @@ export function BackButton({type = 'SECUNDARY', icon = 'arrow-back'}: Props){
   }
   
   return(
-    <Container onPress={handleNavigateToHome}>
+    <Container type={backgroundType} onPress={handleNavigateToHome}>
       <IconBackButton name={icon} type={type}/>
-      <TitleStatistics> Nova refeição </TitleStatistics>
+      <TitleStatistics> {textTitle} </TitleStatistics>
     </Container>
   );
 }

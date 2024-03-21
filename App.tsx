@@ -17,7 +17,7 @@ export default function App() {
         barStyle='dark-content'
         translucent
       />
-      { fontsLoaded ? <MealConsultantion/> : <Loading/> }
+      { fontsLoaded ? <Routes/> : <Loading/> }
     </ThemeProvider>
   );
 }

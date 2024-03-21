@@ -16,7 +16,7 @@ export function FeedbackScreen(){
   const { onDiet } = route.params as RouteParamFeedback;
 
   function handleNavigateToHome(): void{
-    navigation.navigate('home');
+    navigation.navigate('meal');
   }
 
   return(
