@@ -3,7 +3,6 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import positiveDiet from "@assets/positiveDiet.png"
 import negativeDiet from "@assets/negaiveDiet.png"
 import { Button } from "@components/Button/Button";
-import { View } from "react-native";
 
 export type RouteParamFeedback = {
   onDiet: boolean;

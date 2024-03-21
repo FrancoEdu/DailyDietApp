@@ -1,6 +1,7 @@
 import { Loading } from "@components/Loading";
 import { NunitoSans_400Regular, NunitoSans_700Bold, useFonts } from "@expo-google-fonts/nunito-sans";
 import { Routes } from "@routes/Index";
+import { MealConsultantion } from "@screens/MealConsultation/MealConsultation";
 import { StatusBar } from "react-native";
 import theme from 'src/theme';
 import {ThemeProvider} from 'styled-components'
@@ -16,7 +17,7 @@ export default function App() {
         barStyle='dark-content'
         translucent
       />
-      { fontsLoaded ? <Routes/> : <Loading/> }
+      { fontsLoaded ? <MealConsultantion/> : <Loading/> }
     </ThemeProvider>
   );
 }
