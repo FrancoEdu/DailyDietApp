@@ -32,7 +32,7 @@ export function HomeScreen(){
       <AccountHeader/>
       <CardStatistics onPress={handleNavigateStatistics}/>
       <FoodText>Refeições</FoodText>
-      <Button title="Nova refeição" onPress={handleNavigateNewSnack}/>
+      <Button title="Nova refeição" onPress={handleNavigateNewSnack} icon="add"/>
     </Container>
   );
 }

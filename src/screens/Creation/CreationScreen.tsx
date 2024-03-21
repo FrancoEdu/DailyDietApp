@@ -4,15 +4,27 @@ import { DataInput } from "@components/DataInput/DataInput";
 import { SelectedOnDietButton } from "@components/SelectedOnDietButton/SelectedOnDietButton";
 import { useState } from "react";
 import { Button } from "@components/Button/Button";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 
 export function CreationScreen(){
+
+  const navigation = useNavigation();
+
   const [isOnDiet, setIsOnDiet] = useState<boolean | undefined>(undefined);
 
   const handleOnDietButtonClick = (isOnDiet: boolean) => {
     setIsOnDiet(isOnDiet);
   };
+
+  function handleNavigateToFeedback(): void{
+    if(isOnDiet !== undefined){
+      navigation.navigate('feedback', {onDiet: isOnDiet});
+      return;
+    }
+    Alert.alert("Dieta", "Selecione se você está na dieta ou não")
+  }
 
   return(
     <Container>
@@ -41,7 +53,7 @@ export function CreationScreen(){
         </SideView>
       </DivideMiddleView>
       <View style={{ flex: 1, justifyContent: 'flex-end'}}>
-        <Button title="Cadastrar nova refeição"/>
+        <Button title="Cadastrar nova refeição" onPress={handleNavigateToFeedback}/>
       </View>
     </Container>
   );

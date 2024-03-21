@@ -25,6 +25,7 @@ export const Container = styled(TouchableOpacity)<Props>`
   border-color: ${({ theme, type }) => type === 'PRIMARY' ? theme.COLORS.WHITE : theme.COLORS.GRAY_600};
   border-width: 2px;
   border-style: solid;
+  width: 100%;
 `;
 
 export const Title = styled.Text<Props>`
