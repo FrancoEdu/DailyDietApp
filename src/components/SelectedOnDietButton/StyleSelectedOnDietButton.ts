@@ -20,10 +20,10 @@ export const Container = styled(TouchableOpacity)<SelectedOnDietProp>`
   background-color: ${({ theme }) => theme.COLORS.GRAY_200};
 
   ${({ selected, onDiet, theme }) => selected && css`
-    border: 2px solid ${onDiet ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
+    border: 2px solid ${onDiet ? theme.COLORS.GREEN : theme.COLORS.RED};
   `}
   ${({ selected, onDiet, theme }) => selected && css`
-    background-color: ${onDiet ? theme.COLORS.GREEN : theme.COLORS.RED};
+    background-color: ${onDiet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
   `}
 `;
 

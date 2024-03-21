@@ -2,8 +2,17 @@ import { BackButton } from "@components/BackButton/BackButton";
 import { Container, DivideMiddleView, SideView, TextInput } from "./StyleCreationScreen";
 import { DataInput } from "@components/DataInput/DataInput";
 import { SelectedOnDietButton } from "@components/SelectedOnDietButton/SelectedOnDietButton";
+import { useState } from "react";
+import { Button } from "@components/Button/Button";
+import { View } from "react-native";
+
 
 export function CreationScreen(){
+  const [isOnDiet, setIsOnDiet] = useState<boolean | undefined>(undefined);
+
+  const handleOnDietButtonClick = (isOnDiet: boolean) => {
+    setIsOnDiet(isOnDiet);
+  };
 
   return(
     <Container>
@@ -25,12 +34,15 @@ export function CreationScreen(){
       <TextInput>Está dentro da dieta?</TextInput>
       <DivideMiddleView>
         <SideView>
-          <SelectedOnDietButton selected={false} text="Sim" onDiet={true}/>
+          <SelectedOnDietButton selected={isOnDiet === true} text="Sim" onDiet={true} onPress={() => handleOnDietButtonClick(true)}/>
         </SideView>
         <SideView>
-          <SelectedOnDietButton selected={false} text="Não" onDiet={false}/>
+          <SelectedOnDietButton selected={isOnDiet === false} text="Não" onDiet={false} onPress={() => handleOnDietButtonClick(false)}/>
         </SideView>
       </DivideMiddleView>
+      <View style={{ flex: 1, justifyContent: 'flex-end'}}>
+        <Button title="Cadastrar nova refeição"/>
+      </View>
     </Container>
   );
 }
