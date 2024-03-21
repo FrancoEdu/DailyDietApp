@@ -13,3 +13,16 @@ export const TextInput = styled.Text`
   color: ${({ theme }) => theme.COLORS.GRAY_700};
   margin-bottom: 5px;
 `
+
+export const DivideMiddleView = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+`
+
+export const SideView = styled.View`
+  width: 48%;
+  flex-direction: column;
+`;

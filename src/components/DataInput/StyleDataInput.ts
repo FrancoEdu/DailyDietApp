@@ -7,7 +7,7 @@ export const Container = styled(TextInput)`
   max-height: 56px;
   border-radius: 4px;
   padding: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 
   ${({theme}) => css`
     background-color: ${theme.COLORS.WHITE};
