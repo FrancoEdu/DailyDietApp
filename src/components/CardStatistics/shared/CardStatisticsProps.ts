@@ -3,4 +3,5 @@ import { ButtonTypeStyleProps } from "../StyleCardStatistics";
 
 export type CardStatisticsProp = TouchableOpacityProps & {
   type?: ButtonTypeStyleProps
+  percentage: number;
 }

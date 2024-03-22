@@ -2,13 +2,13 @@ import { Container, HeaderCardStatistics, IconCardStatistics, PorcentageText } f
 import { CardStatisticsProp } from "./shared/CardStatisticsProps";
 import { Text } from "react-native";
 
-export function CardStatistics({type = 'PRIMARY', ...rest} : CardStatisticsProp){
+export function CardStatistics({percentage, type = 'PRIMARY', ...rest} : CardStatisticsProp){
   return(
-    <Container type={type}>
+    <Container type={percentage < 50 ? 'SECUNDARY' : 'PRIMARY'}>
       <HeaderCardStatistics {...rest}>
-          <IconCardStatistics name="arrow-outward" type={type}/>
+          <IconCardStatistics name="arrow-outward" type={percentage < 50 ? 'SECUNDARY' : 'PRIMARY'}/>
       </HeaderCardStatistics>
-      <PorcentageText>90,86%</PorcentageText>
+      <PorcentageText>{percentage.toFixed(2)}%</PorcentageText>
       <Text>das refeições dentro da dieta</Text>
     </Container>
   );

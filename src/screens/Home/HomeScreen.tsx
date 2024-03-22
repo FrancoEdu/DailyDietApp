@@ -4,20 +4,49 @@ import { CardStatistics } from "@components/CardStatistics/CardStatistics";
 import { AccountHeader } from "@components/AccountHeader/AccountHeader";
 import { SnackCard } from "@components/SnackCard/SnackCard";
 import { EmptyList } from "@components/EmptyList/EmptyList";
-import { Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Alert, FlatList, View } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { DateDTO } from "@data/Dates/DateDTO";
+import { DateManeger } from "@data/Dates/DateService";
 
 export function HomeScreen(){
 
-  // <DateText>17.03.2024</DateText>
-  // <SnackCard name="X-TUDO" onDiet={false} hour="20:00"/>
-  // <SnackCard name="X-TUDO" onDiet={true} hour="20:00"/>
-  // <SnackCard name="X-TUDO" onDiet={false} hour="20:00"/>
-  // <SnackCard name="X-TUDO" onDiet={true} hour="20:00"/>
-  // <SnackCard name="X-TUDO" onDiet={false} hour="20:00"/>
-  // <EmptyList message="Nenhuma refeição registrada, que tal adicionar..."/>
-
+  const [statistics, setStatistics] = useState<number>(0);
+  const [dates, setDates] = useState<DateDTO[]>([]);
   const navigation = useNavigation();
+
+  const renderDates = ({item} : {item: DateDTO}) => (
+    <View>
+      <DateText>{item.date}</DateText>
+      {item.snacks.map((snack) => (
+        <SnackCard key={snack.id} name={snack.name} onDiet={snack.onDiet} hour={snack.hour} />
+      ))}
+    </View>
+	);
+
+  async function fetchDates(): Promise<void>{
+		try {
+			const data = await DateManeger.GetAllData();
+      setDates(data);
+		} catch (error) {
+			throw error;
+		}
+	}
+
+  async function fetchStatistics() {
+    try {
+      const percentage = await DateManeger.CalculateAllStatisticsOfUserDiet();
+      setStatistics(percentage)
+    } catch (error) {
+      throw error;
+    }
+  }
+
+	useFocusEffect(useCallback(() => {
+		fetchDates();
+    fetchStatistics();
+	}, []))
 
   function handleNavigateStatistics(){
     navigation.navigate('statistic')
@@ -30,9 +59,21 @@ export function HomeScreen(){
   return(
     <Container>
       <AccountHeader/>
-      <CardStatistics onPress={handleNavigateStatistics}/>
+      <CardStatistics percentage={statistics} onPress={handleNavigateStatistics}/>
       <FoodText>Refeições</FoodText>
       <Button title="Nova refeição" onPress={handleNavigateNewSnack} icon="add"/>
+      <FlatList
+				data={dates}
+				keyExtractor={(item) => item.date}
+				showsVerticalScrollIndicator={false}
+				renderItem={renderDates}
+				contentContainerStyle={dates.length === 0 && {
+					flex: 1
+				}}
+				ListEmptyComponent={() => (
+					<EmptyList message="Nenhuma refeição registrada, que tal adicionar..."/>
+				)}
+			/>
     </Container>
   );
 }

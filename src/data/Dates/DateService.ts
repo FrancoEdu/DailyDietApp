@@ -45,4 +45,27 @@ export class DateManeger{
       error
     }
   }
+
+  static async CalculateAllStatisticsOfUserDiet(): Promise<number>{
+    try{
+      const allDates = await this.GetAllData();
+      
+      let totalSnacks = 0;
+      let onDietSnacks = 0;
+
+      allDates.forEach(date => {
+        date.snacks.forEach(snack => {
+          totalSnacks++;
+          if (snack.onDiet) {
+            onDietSnacks++;
+          }
+        });
+      });
+      
+      const percentage = (onDietSnacks / totalSnacks) * 100;
+      return percentage;
+    } catch(error){
+        throw error;
+    }
+  }
 }
