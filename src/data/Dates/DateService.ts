@@ -68,4 +68,68 @@ export class DateManeger{
         throw error;
     }
   }
+
+  static async CalculateTotalOfSnacks(): Promise<number>{
+    try{
+      const allDates = await this.GetAllData();
+      
+      let totalSnacks = 0;
+
+      allDates.forEach(date => {
+        let total = date.snacks.length;
+        totalSnacks = totalSnacks + total;
+      });
+
+      return totalSnacks;
+    } catch(error){
+        throw error;
+    }
+  }
+
+  static async CalculateOnDietAnNotOnDietSnacks(): Promise<number[]>{
+    try{
+      const allDates = await this.GetAllData();
+      
+      let snacksOnDiet = 0;
+      let snacksNotOnDiet = 0;
+
+      allDates.forEach(date => {
+        date.snacks.forEach(snack => {
+          if (snack.onDiet) {
+            snacksOnDiet++;
+          }else if(!snack.onDiet){
+            snacksNotOnDiet++;
+          }
+        });
+      });
+      return [snacksOnDiet, snacksNotOnDiet];
+    } catch(error){
+        throw error;
+    }
+  }
+
+  static async CalculateBestSequenceOnDietSnacks(): Promise<number>{
+    try{
+      const allDates = await this.GetAllData();
+      
+      let bestSequence = 0;
+      let currentSequence = 0;
+
+      allDates.forEach(date => {
+        date.snacks.forEach(snack => {
+          if (snack.onDiet) {
+            currentSequence++;
+            bestSequence = Math.max(bestSequence, currentSequence);
+          } else {
+            currentSequence = 0;
+          }
+        });
+      });
+
+      return bestSequence;
+    } catch(error){
+      throw error;
+    }
+}
+
 }
