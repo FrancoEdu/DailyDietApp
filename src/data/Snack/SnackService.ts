@@ -2,6 +2,8 @@ import { DateManeger } from "@data/Dates/DateService";
 import { SnackDTO } from "./SnackDTO";
 import { DateDTO } from "@data/Dates/DateDTO";
 import { AppError } from "@utils/AppError";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SNACK_COLLECTION } from "@data/StorageConfig";
 
 export class SnackManager{
 
@@ -42,6 +44,26 @@ export class SnackManager{
       return snack;
     } catch (error) {
       throw error
+    }
+  }
+
+  static async DeleteSnackById(id: string): Promise<void>{
+    try {
+      let allData = await DateManeger.GetAllData();
+      const snack = await this.FindSnackById(id);
+      const currentDate = allData.find(x => x.date === snack.date);
+
+      if (currentDate) {
+        currentDate.snacks = currentDate.snacks.filter(x => x.id !== snack.id);
+        if(currentDate.snacks.length <= 0){
+          allData = allData.filter(x => x.date !== currentDate.date);
+        }
+        await AsyncStorage.setItem(SNACK_COLLECTION, JSON.stringify(allData));
+      } else {
+        throw new AppError('Falha ao tentar excluir');
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }

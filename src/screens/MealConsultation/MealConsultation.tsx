@@ -27,6 +27,17 @@ export function MealConsultantion(){
     fetchSnack(mealId);
   }, []))
 
+  function handleDeleteMeal(snackName: string) {
+    Alert.alert(
+      "Exclusão de refeição",
+      `Deseja remover a refeição ${snackName}?`,
+      [
+        {text: 'Não', style: 'cancel'},
+        {text: 'Sim', onPress: () => deleteMeal()}
+      ]
+    )
+  }
+
   async function fetchSnack(snackId: string){
     try {
       const snack = await SnackManager.FindSnackById(snackId);
@@ -36,6 +47,17 @@ export function MealConsultantion(){
       if(error instanceof AppError){
         Alert.alert("Refeição", error.getMessage());
         navigation.navigate('home');
+      }
+    }
+  }
+
+  async function deleteMeal(){
+    try {
+      await SnackManager.DeleteSnackById(mealId);
+      navigation.navigate('home');
+    } catch (error) {
+      if(error instanceof AppError){
+        Alert.alert("Exclusão de refeição", error.getMessage());
       }
     }
   }
@@ -60,7 +82,7 @@ export function MealConsultantion(){
           <BadgeSnack onDiet={snack?.onDiet ? true : false}/>
           <View style={{flex: 1, justifyContent: 'flex-end', flexDirection: 'column', gap: 10, marginBottom: 150}}>
             <Button type="PRIMARY" icon="edit" title="Editar refeição" />
-            <Button type="SECUNDARY" icon="restore-from-trash" title="Excluir refeição" />
+            <Button type="SECUNDARY" icon="restore-from-trash" title="Excluir refeição" onPress={() => handleDeleteMeal(snack ? snack.name : "")}/>
           </View>
         </Bottom>
       </Container>

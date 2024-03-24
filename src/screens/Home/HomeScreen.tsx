@@ -10,6 +10,7 @@ import { useCallback, useState } from "react";
 import { DateDTO } from "@data/Dates/DateDTO";
 import { DateManeger } from "@data/Dates/DateService";
 import { Text } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function HomeScreen(){
 
