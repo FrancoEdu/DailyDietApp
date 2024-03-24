@@ -9,8 +9,6 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { DateDTO } from "@data/Dates/DateDTO";
 import { DateManeger } from "@data/Dates/DateService";
-import { Text } from "react-native"
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function HomeScreen(){
 
@@ -50,7 +48,8 @@ export function HomeScreen(){
   async function fetchStatistics() {
     try {
       const percentage = await DateManeger.CalculateAllStatisticsOfUserDiet();
-      setStatistics(percentage)
+      console.log("Percentage:", percentage); // Log the value
+      setStatistics(percentage ?? 0);
     } catch (error) {
       throw error;
     }
@@ -61,7 +60,7 @@ export function HomeScreen(){
   }
 
   function handleNavigateNewSnack(): void{
-    navigation.navigate('creation')
+    navigation.navigate('creation', {mealId: undefined})
   }
 
   function handleOpenInfoAboutSnack(id: string): void{

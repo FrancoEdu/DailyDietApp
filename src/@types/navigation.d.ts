@@ -3,7 +3,9 @@ export declare global {
     interface RootParamList {
       home: undefined;
       statistic: undefined;
-      creation: undefined;
+      creation: {
+        mealId?: string;
+      };
       feedback: {
         onDiet: boolean;
       };

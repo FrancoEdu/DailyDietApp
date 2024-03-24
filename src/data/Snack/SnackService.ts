@@ -66,4 +66,13 @@ export class SnackManager{
       throw error;
     }
   }
+
+  static async EditSnack(snack: SnackDTO): Promise<void>{
+    try {
+      await this.DeleteSnackById(snack.id);
+      await this.CreateNewSnack(snack);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

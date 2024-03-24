@@ -2,19 +2,25 @@ import { BackButton } from "@components/BackButton/BackButton";
 import { Container, DivideMiddleView, SideView, TextInput } from "./StyleCreationScreen";
 import { DataInput } from "@components/DataInput/DataInput";
 import { SelectedOnDietButton } from "@components/SelectedOnDietButton/SelectedOnDietButton";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@components/Button/Button";
 import { Alert, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import { AppError } from "@utils/AppError";
 import { SnackDTO } from "@data/Snack/SnackDTO";
 import { Guid } from "guid-ts";
 import { SnackManager } from "@data/Snack/SnackService";
+import { RootParamList } from "@screens/MealConsultation/MealConsultation";
 
 
 export function CreationScreen(){
 
+  const route = useRoute() // consigo pegar params
   const navigation = useNavigation();
+
+  const { mealId } = route.params as RootParamList;
+
+  const [ snack, setSnack ] = useState<SnackDTO>();
 
   const [isOnDiet, setIsOnDiet] = useState<boolean | undefined>(undefined);
   const [name, setName] = useState<string>('');
@@ -25,6 +31,29 @@ export function CreationScreen(){
   const handleOnDietButtonClick = (isOnDiet: boolean) => {
     setIsOnDiet(isOnDiet);
   };
+
+  useFocusEffect(useCallback(() => {
+    if(mealId){
+      fetchSnack(mealId);
+    }
+  }, []));
+
+  async function fetchSnack(snackId: string){
+    try {
+      const snack = await SnackManager.FindSnackById(snackId);
+      setSnack(snack);
+      setIsOnDiet(snack.onDiet);
+      setDate(snack.date);
+      setHour(snack.hour);
+      setName(snack.name);
+      setDescription(snack.description);
+    } catch (error) {
+      if(error instanceof AppError){
+        Alert.alert("Refeição", error.getMessage());
+        navigation.navigate('home');
+      }
+    }
+  }
 
   async function handleNavigateToFeedback(): Promise<void>{
     try {
@@ -38,14 +67,14 @@ export function CreationScreen(){
         return;
       }
       const newSnack: SnackDTO = {
-        id: Guid.newGuid().toString(),
+        id: mealId ? mealId : Guid.newGuid().toString(),
         name: name,
         description: description,
         date: date,
         hour: hour,
         onDiet: isOnDiet
       }
-      await SnackManager.CreateNewSnack(newSnack);
+      mealId ? await SnackManager.EditSnack(newSnack) : await SnackManager.CreateNewSnack(newSnack);
       navigation.navigate('feedback', {onDiet: isOnDiet});
     } catch (error) {
       if(error instanceof AppError){ 
@@ -57,19 +86,19 @@ export function CreationScreen(){
 
   return(
     <Container>
-      <BackButton textTitle="Nova refeição"/>
+      <BackButton textTitle={snack ? "Editar refeição" : "Nova refeição"}/>
       <TextInput>Nome</TextInput>
-      <DataInput onChangeText={setName}/>
+      <DataInput onChangeText={setName} value={snack ? snack.name : ''}/>
       <TextInput>Descrição</TextInput>
-      <DataInput onChangeText={setDescription}/>
+      <DataInput onChangeText={setDescription} value={snack ? snack.description : ''}/>
       <DivideMiddleView>
         <SideView>
           <TextInput>Data</TextInput>
-          <DataInput maxLength={10} keyboardType="numbers-and-punctuation" onChangeText={setDate}/>
+          <DataInput maxLength={10} keyboardType="numbers-and-punctuation" onChangeText={setDate} value={snack ? snack.date : ''}/>
         </SideView>
         <SideView>
           <TextInput>Hora</TextInput>
-          <DataInput maxLength={5} keyboardType="numbers-and-punctuation" onChangeText={setHour}/>
+          <DataInput maxLength={5} keyboardType="numbers-and-punctuation" onChangeText={setHour} value={snack ? snack.hour : ''}/>
         </SideView>
       </DivideMiddleView>
       <TextInput>Está dentro da dieta?</TextInput>
@@ -82,7 +111,7 @@ export function CreationScreen(){
         </SideView>
       </DivideMiddleView>
       <View style={{ flex: 1, justifyContent: 'flex-end'}}>
-        <Button title="Cadastrar nova refeição" onPress={handleNavigateToFeedback}/>
+        <Button title={snack ? "Editar refeição" : "Cadastrar nova refeição"} onPress={handleNavigateToFeedback}/>
       </View>
     </Container>
   );

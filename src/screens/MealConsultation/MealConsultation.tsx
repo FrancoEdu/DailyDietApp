@@ -9,7 +9,7 @@ import { SnackDTO } from "@data/Snack/SnackDTO";
 import { AppError } from "@utils/AppError";
 import { SnackManager } from "@data/Snack/SnackService";
 
-type RootParamList = {
+export type RootParamList = {
   mealId: string;
 }
 
@@ -36,6 +36,10 @@ export function MealConsultantion(){
         {text: 'Sim', onPress: () => deleteMeal()}
       ]
     )
+  }
+
+  function handleNavigateToEdit(){
+    navigation.navigate('creation', { mealId: mealId})
   }
 
   async function fetchSnack(snackId: string){
@@ -81,7 +85,7 @@ export function MealConsultantion(){
           </HourDate>
           <BadgeSnack onDiet={snack?.onDiet ? true : false}/>
           <View style={{flex: 1, justifyContent: 'flex-end', flexDirection: 'column', gap: 10, marginBottom: 150}}>
-            <Button type="PRIMARY" icon="edit" title="Editar refeição" />
+            <Button type="PRIMARY" icon="edit" title="Editar refeição" onPress={handleNavigateToEdit}/>
             <Button type="SECUNDARY" icon="restore-from-trash" title="Excluir refeição" onPress={() => handleDeleteMeal(snack ? snack.name : "")}/>
           </View>
         </Bottom>

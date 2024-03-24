@@ -62,10 +62,9 @@ export class DateManeger{
         });
       });
       
-      const percentage = (onDietSnacks / totalSnacks) * 100;
-      return percentage;
+      return totalSnacks > 0 ? (onDietSnacks / totalSnacks) * 100 : 0;
     } catch(error){
-        throw error;
+      throw error;
     }
   }
 
