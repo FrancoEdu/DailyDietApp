@@ -88,17 +88,17 @@ export function CreationScreen(){
     <Container>
       <BackButton textTitle={snack ? "Editar refeição" : "Nova refeição"}/>
       <TextInput>Nome</TextInput>
-      <DataInput onChangeText={setName} value={snack ? snack.name : ''}/>
+      <DataInput onChangeText={setName} value={snack?.name}/>
       <TextInput>Descrição</TextInput>
-      <DataInput onChangeText={setDescription} value={snack ? snack.description : ''}/>
+      <DataInput onChangeText={setDescription} value={snack?.description}/>
       <DivideMiddleView>
         <SideView>
           <TextInput>Data</TextInput>
-          <DataInput maxLength={10} keyboardType="numbers-and-punctuation" onChangeText={setDate} value={snack ? snack.date : ''}/>
+          <DataInput maxLength={10} keyboardType="numbers-and-punctuation" onChangeText={setDate} value={snack?.date}/>
         </SideView>
         <SideView>
           <TextInput>Hora</TextInput>
-          <DataInput maxLength={5} keyboardType="numbers-and-punctuation" onChangeText={setHour} value={snack ? snack.hour : ''}/>
+          <DataInput maxLength={5} keyboardType="numbers-and-punctuation" onChangeText={setHour} value={snack?.hour}/>
         </SideView>
       </DivideMiddleView>
       <TextInput>Está dentro da dieta?</TextInput>
