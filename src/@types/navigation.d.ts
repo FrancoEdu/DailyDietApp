@@ -7,7 +7,9 @@ export declare global {
       feedback: {
         onDiet: boolean;
       };
-      meal: undefined;
+      meal: {
+        mealId: string;
+      };
     }
   }
 }

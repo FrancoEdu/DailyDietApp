@@ -4,11 +4,12 @@ import { CardStatistics } from "@components/CardStatistics/CardStatistics";
 import { AccountHeader } from "@components/AccountHeader/AccountHeader";
 import { SnackCard } from "@components/SnackCard/SnackCard";
 import { EmptyList } from "@components/EmptyList/EmptyList";
-import { Alert, FlatList, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { DateDTO } from "@data/Dates/DateDTO";
 import { DateManeger } from "@data/Dates/DateService";
+import { Text } from "react-native"
 
 export function HomeScreen(){
 
@@ -20,10 +21,21 @@ export function HomeScreen(){
     <View>
       <DateText>{item.date}</DateText>
       {item.snacks.map((snack) => (
-        <SnackCard key={snack.id} name={snack.name} onDiet={snack.onDiet} hour={snack.hour} />
+        <SnackCard 
+          key={snack.id} 
+          name={snack.name} 
+          onDiet={snack.onDiet} 
+          hour={snack.hour} 
+          onPress={() => handleOpenInfoAboutSnack(snack.id)}
+        />
       ))}
     </View>
 	);
+
+  useFocusEffect(useCallback(() => {
+    fetchDates();
+    fetchStatistics();
+  }, []))
 
   async function fetchDates(): Promise<void>{
 		try {
@@ -43,17 +55,16 @@ export function HomeScreen(){
     }
   }
 
-	useFocusEffect(useCallback(() => {
-		fetchDates();
-    fetchStatistics();
-	}, []))
-
-  function handleNavigateStatistics(){
+  function handleNavigateStatistics(): void{
     navigation.navigate('statistic')
   }
 
-  function handleNavigateNewSnack(){
+  function handleNavigateNewSnack(): void{
     navigation.navigate('creation')
+  }
+
+  function handleOpenInfoAboutSnack(id: string): void{
+    navigation.navigate('meal', { mealId: id})
   }
 
   return(

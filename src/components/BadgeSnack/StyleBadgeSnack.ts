@@ -8,7 +8,7 @@ export type SelectedOnDietProp = {
 export const Container = styled.View`
   margin-top: 20px;
   height: 34px;
-  width: 127px;
+  width: 140px;
   padding: 5px;
   gap: 10px;
   justify-content: center;
